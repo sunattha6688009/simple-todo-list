@@ -113,11 +113,13 @@ app.patch('/api/todos/:id', (req, res) => {
 
   todos[todoIndex].text = text.trim();
 
-  if (writeTodos(todos)) {
-    res.json(todos[todoIndex]);
-  } else {
-    res.status(500).json({ error: 'Failed to update todo' });
+  const success = writeTodos(todos);
+
+  if (!success) {
+    return res.status(500).json({ error: 'Failed to update todo' });
   }
+
+  res.json(todos[todoIndex]);
 });
 
 
