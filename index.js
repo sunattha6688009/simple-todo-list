@@ -74,17 +74,39 @@ app.post('/api/todos', (req, res) => {
 });
 
 // Toggle todo completion
+// app.put('/api/todos/:id', (req, res) => {
+//   const id = parseInt(req.params.id);
+//   const todos = readTodos();
+//   const todoIndex = todos.findIndex(t => t.id === id);
+  
+//   if (todoIndex === -1) {
+//     return res.status(404).json({ error: 'Todo not found' });
+//   }
+  
+//   todos[todoIndex].completed = true;
+// });
+
 app.put('/api/todos/:id', (req, res) => {
   const id = parseInt(req.params.id);
   const todos = readTodos();
   const todoIndex = todos.findIndex(t => t.id === id);
-  
+
   if (todoIndex === -1) {
     return res.status(404).json({ error: 'Todo not found' });
   }
-  
-  todos[todoIndex].completed = true;
+
+  // toggle completion
+  todos[todoIndex].completed = !todos[todoIndex].completed;
+
+  // save file
+  if (!writeTodos(todos)) {
+    return res.status(500).json({ error: 'Failed to update todo' });
+  }
+
+  // send response
+  return res.json(todos[todoIndex]);
 });
+
 
 // Delete a todo
 app.delete('/api/todos/:id', (req, res) => {
