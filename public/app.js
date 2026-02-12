@@ -23,6 +23,21 @@ async function fetchTodos() {
     }
 }
 
+// Add edit (New feature)
+async function editTodo(id) {
+    const newText = prompt("Edit todo:");
+    if (!newText) return;
+  
+    await fetch(`/api/todos/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: newText })
+    });
+  
+    fetchTodos();
+  }
+  // Add edit (New feature)
+
 // Add a new todo
 async function addTodo() {
     const text = todoInput.value.trim();
@@ -112,6 +127,8 @@ function renderTodos() {
                 />
                 <span class="todo-text">${escapeHtml(todo.text)}</span>
                 <button class="delete-btn" onclick="deleteTodo(${todo.id})">Delete</button>
+                <button onclick="editTodo(${todo.id})">Edit</button>
+
             </div>
         `).join('');
     }
