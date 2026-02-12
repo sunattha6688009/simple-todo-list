@@ -127,7 +127,7 @@ function renderTodos() {
                 />
                 <span class="todo-text">${escapeHtml(todo.text)}</span>
                 <button class="delete-btn" onclick="deleteTodo(${todo.id})">Delete</button>
-                <button onclick="editTodo(${todo.id})">Edit</button>
+                <button class="edit-btn" onclick="editTodo(${todo.id})">Edit</button>
 
             </div>
         `).join('');

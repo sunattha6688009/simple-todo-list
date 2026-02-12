@@ -141,3 +141,19 @@ h1 {
     color: #6c757d;
     font-size: 18px;
 }
+
+
+.edit-btn {
+    background: rgb(253, 186, 0);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.edit-btn:hover {
+    background: #ffd438;
+}
