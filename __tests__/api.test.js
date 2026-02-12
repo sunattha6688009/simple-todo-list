@@ -156,6 +156,34 @@ describe('Todo API Endpoints', () => {
     });
   });
 
+
+// Step 4: Adding a New Feature 
+  describe('PATCH /api/todos/:id', () => {
+    test('should edit todo text', async () => {
+      const createResponse = await request(app)
+        .post('/api/todos')
+        .send({ text: 'Old text' });
+  
+      const todoId = createResponse.body.id;
+  
+      const updateResponse = await request(app)
+        .patch(`/api/todos/${todoId}`)
+        .send({ text: 'New text' });
+  
+      expect(updateResponse.status).toBe(200);
+      expect(updateResponse.body.text).toBe('New text');
+    });
+  
+    test('should return 404 if todo not found', async () => {
+      const response = await request(app)
+        .patch('/api/todos/999999')
+        .send({ text: 'Edit' });
+  
+      expect(response.status).toBe(404);
+    });
+  });
+// Step 4: Adding a New Feature  
+
   describe('DELETE /api/todos/:id', () => {
     test('should delete a todo', async () => {
       // Create a todo
